@@ -1,0 +1,34 @@
+	auto bsprite = Sprite::create("bup1.png");
+	
+	auto bright = Animation::create();
+	right->addSpriteFrameWithFile("bright1.png");
+	right->addSpriteFrameWithFile("bright2.png");
+	right->setDelayPerUnit(0.2f);
+
+	auto bleft = Animation::create();
+	left->addSpriteFrameWithFile("bleft1.png");
+	left->addSpriteFrameWithFile("bleft2.png");
+	left->setDelayPerUnit(0.2f);
+
+	auto bup = Animation::create();
+	up->addSpriteFrameWithFile("bup1.png");
+	up->addSpriteFrameWithFile("bup2.png");
+	up->setDelayPerUnit(0.2f);
+
+
+	auto bdown = Animation::create();
+	down->addSpriteFrameWithFile("bdown1.png");
+	down->addSpriteFrameWithFile("bdown2.png");
+	down->setDelayPerUnit(0.2f);
+
+	Animate* animbright = Animate::create(bright);
+	Animate* animbleft = Animate::create(bleft);
+	Animate* animbup = Animate::create(bup);
+	Animate* animbdown = Animate::create(bdown);
+
+	bsprite->runAction(Sequence::create(animbright, nullptr));
+	bsprite->runAction(Sequence::create(animbleft, nullptr));
+	bsprite->runAction(Sequence::create(animbup, nullptr));
+	bsprite->runAction(Sequence::create(anibdown, nullptr));
+
+	this->addChild(bsprite);

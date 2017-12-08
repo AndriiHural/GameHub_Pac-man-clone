@@ -1,0 +1,46 @@
+	auto sprite = Sprite::create("pac5.png");
+	
+	auto right = Animation::create();
+	right->addSpriteFrameWithFile("pac1.png");
+	right->addSpriteFrameWithFile("pac2.png");
+	right->addSpriteFrameWithFile("pac3.png");
+	right->addSpriteFrameWithFile("pac4.png");
+	right->addSpriteFrameWithFile("pac5.png");
+	right->addSpriteFrameWithFile("pac4.png");
+	right->addSpriteFrameWithFile("pac3.png");
+	right->addSpriteFrameWithFile("pac2.png");
+	right->setDelayPerUnit(0.1f);
+
+	auto left = Animation::create();
+	left->addSpriteFrameWithFile("pac11.png");
+	left->addSpriteFrameWithFile("pac22.png");
+	left->addSpriteFrameWithFile("pac33.png");
+	left->addSpriteFrameWithFile("pac44.png");
+	left->addSpriteFrameWithFile("pac55.png");
+	left->addSpriteFrameWithFile("pac44.png");
+	left->addSpriteFrameWithFile("pac33.png");
+	left->addSpriteFrameWithFile("pac22.png");
+	left->setDelayPerUnit(0.1f);
+
+	auto up = Animation::create();
+	up->addSpriteFrameWithFile("up1.png");
+	up->addSpriteFrameWithFile("up2.png");
+	up->setDelayPerUnit(0.4f);
+
+
+	auto down = Animation::create();
+	down->addSpriteFrameWithFile("down1.png");
+	down->addSpriteFrameWithFile("down2.png");
+	down->setDelayPerUnit(0.4f);
+
+	Animate* animright = Animate::create(right);
+	Animate* animleft = Animate::create(left);
+	Animate* animup = Animate::create(up);
+	Animate* animdown = Animate::create(down);
+
+	sprite->runAction(Sequence::create(animright, nullptr));
+	sprite->runAction(Sequence::create(animleft, nullptr));
+	sprite->runAction(Sequence::create(animup, nullptr));
+	sprite->runAction(Sequence::create(anidown, nullptr));
+
+	this->addChild(sprite);
