@@ -45,26 +45,33 @@ bool Lab_1::init()
 
 
 			if (arr[i][j] == 0) {
-				CCLOG("arr 0");
 				auto wall = Sprite::create("pac_man/zb.png");
 				wall->setAnchorPoint(Vec2(0, 0));
 				wall->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(wall, -2);
 
-				start_cord_x += 30;
-
 			}
-			if (arr[i][j] == 1) {
-				CCLOG("arr 1");
+			if (arr[i][j] >0) {
 				auto way = Sprite::create("pac_man/st.png");
 				way->setAnchorPoint(Vec2(0, 0));
 				way->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(way, -2);
 
-				start_cord_x += 30;
-
 			}
-
+			if (arr[i][j] == 2) {
+				auto money = Sprite::create("money.png");
+				money->setPosition(Vec2(start_cord_x + 15, start_cord_y + 15));
+				this->addChild(money, -1);
+				/* physicsBodyMoney*/
+				auto body_money = PhysicsBody::createCircle
+				(money->getContentSize().width / 2);
+				/*Мітка для тіла, потрібна при обробці зіткнень*/
+				body_money->setCollisionBitmask(3);
+				body_money->setContactTestBitmask(true);
+				body_money->setDynamic(true);
+				money->setPhysicsBody(body_money);
+			}
+			start_cord_x += 30;
 
 		}
 		start_cord_y -= 30;
@@ -145,7 +152,7 @@ void Lab_1::update(float dt)
 			up->addSpriteFrameWithFile("pac_man/up2.png");
 			up->setDelayPerUnit(0.1f / 2);
 			action = Animate::create(up);
-			if ((arr[can_go[0]][can_go[1]] == 1) && (can_go[9] == 0)) {
+			if ((arr[can_go[0]][can_go[1]] >0) && (can_go[9] == 0)) {
 				if (can_go[8] < can_go[10])
 				{
 					can_go[8] = can_go[8] + can_go[11];
@@ -173,7 +180,7 @@ void Lab_1::update(float dt)
 				can_go[8] = can_go[8] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[6]][can_go[7]] == 1) && (can_go[9] == 0)) {
+				if ((arr[can_go[6]][can_go[7]] >0) && (can_go[9] == 0)) {
 					can_go[0]++;
 					can_go[2]++;
 					can_go[4]++;
@@ -207,7 +214,7 @@ void Lab_1::update(float dt)
 				can_go[9] = can_go[9] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[2]][can_go[3]] == 1) && (can_go[8] == 0)) {
+				if ((arr[can_go[2]][can_go[3]] >0) && (can_go[8] == 0)) {
 					can_go[1]--;
 					can_go[3]--;
 					can_go[5]--;
@@ -235,7 +242,7 @@ void Lab_1::update(float dt)
 			right->setDelayPerUnit(0.1f / 8);
 			action = Animate::create(right);
 
-			if ((arr[can_go[4]][can_go[5]] == 1) && (can_go[8] == 0)) {
+			if ((arr[can_go[4]][can_go[5]] >0) && (can_go[8] == 0)) {
 				if (can_go[9] < can_go[10])
 				{
 					can_go[9] = can_go[9] + can_go[11];
@@ -270,7 +277,7 @@ The method determines which key is pressed and save numder key,
 which is used to simulate the sticking of a key
 */
 void Lab_1::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
-	CCLOG("Key press %d", keyCode);
+	//CCLOG("Key press %d", keyCode);
 	isKeyPressed = true;
 	switch ((int)keyCode)
 	{
@@ -304,8 +311,8 @@ void Lab_1::randomMoveEnemy(float df) {
 	int arrows[4];
 	/*check way when sprite  is on the fork*/
 	/*up and down*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] == 1) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] == 1))
+	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(arr[can_go_Enemy[6]][can_go_Enemy[7]]  >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -315,8 +322,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and left*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] == 1) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] == 1))
+	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -326,8 +333,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/* up and right*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] == 1) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] == 1))
+	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -337,8 +344,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*up and left*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] == 1) &&
-		(arr[can_go_Enemy[2]][can_go_Enemy[3]] == 1))
+	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(arr[can_go_Enemy[2]][can_go_Enemy[3]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 28) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -348,8 +355,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and down*/
-	if ((arr[can_go_Enemy[4]][can_go_Enemy[5]] == 1) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] == 1))
+	if ((arr[can_go_Enemy[4]][can_go_Enemy[5]]>0) &&
+		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -359,8 +366,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*left and down*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] == 1) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] == 1))
+	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -369,7 +376,7 @@ void Lab_1::randomMoveEnemy(float df) {
 			EnemyArrows = arrows[randomInt];
 		}
 	}
-	CCLOG("Random key %d,  %d", randomInt, EnemyArrows);
+	//CCLOG("Random key %d,  %d", randomInt, EnemyArrows);
 
 
 
@@ -379,7 +386,7 @@ void Lab_1::randomMoveEnemy(float df) {
 	switch (EnemyArrows)
 	{
 	case 28:// move up
-		if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] == 1) && (can_go_Enemy[9] == 0)) {
+		if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) && (can_go_Enemy[9] == 0)) {
 			if (can_go_Enemy[8] < can_go_Enemy[10])
 			{
 				can_go_Enemy[8] = can_go_Enemy[8] + can_go_Enemy[11];
@@ -400,7 +407,7 @@ void Lab_1::randomMoveEnemy(float df) {
 			can_go_Enemy[8] = can_go_Enemy[8] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[6]][can_go_Enemy[7]] == 1) && (can_go_Enemy[9] == 0)) {
+			if ((arr[can_go_Enemy[6]][can_go_Enemy[7]] >0) && (can_go_Enemy[9] == 0)) {
 				can_go_Enemy[0]++;
 				can_go_Enemy[2]++;
 				can_go_Enemy[4]++;
@@ -417,7 +424,7 @@ void Lab_1::randomMoveEnemy(float df) {
 			can_go_Enemy[9] = can_go_Enemy[9] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] == 1) && (can_go_Enemy[8] == 0)) {
+			if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) && (can_go_Enemy[8] == 0)) {
 				can_go_Enemy[1]--;
 				can_go_Enemy[3]--;
 				can_go_Enemy[5]--;
@@ -429,7 +436,7 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 		break;
 	case 27:// move right
-		if ((arr[can_go_Enemy[4]][can_go_Enemy[5]] == 1) && (can_go_Enemy[8] == 0)) {
+		if ((arr[can_go_Enemy[4]][can_go_Enemy[5]] >0) && (can_go_Enemy[8] == 0)) {
 			if (can_go_Enemy[9] < can_go_Enemy[10])
 			{
 				can_go_Enemy[9] = can_go_Enemy[9] + can_go_Enemy[11];
@@ -483,6 +490,18 @@ bool Lab_1::onContactBegin(PhysicsContact& contact)
 	{
 		CCLOG("Game OVER");
 		GoToGameOverScene(this);
+		return true;// Так штовхають одни одного
+	}
+	/*При зіткненні ГГ з монетою*/
+	if ((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) ||
+		(3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	{	
+
+		CCLOG("Cosisia Money");
+		Sprite spriteA = (Sprite)contact.getShapeA()->getBody()->getNode();
+		spriteA->onExit();
+		//a.onExit();
+		//arr[can_go[2]][can_go[3]]
 		return true;// Так штовхають одни одного
 	}
 
