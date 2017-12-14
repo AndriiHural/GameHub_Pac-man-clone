@@ -77,8 +77,6 @@ bool Lab_1::init()
 
 	auto body = PhysicsBody::createCircle
 	(sprite->getContentSize().width / 2);
-	/*Мітка для тіла, потрібна при обробці зіткнень*/
-	body->setCollisionBitmask(1);
 	body->setContactTestBitmask(true);
 	body->setDynamic(true);
 	sprite->setPhysicsBody(body);
@@ -90,8 +88,6 @@ bool Lab_1::init()
 
 	auto body_enemy = PhysicsBody::createCircle
 	(enemy->getContentSize().width / 2);
-	/*Мітка для тіла, потрібна при обробці зіткнень*/
-	body_enemy->setCollisionBitmask(2);
 	body_enemy->setContactTestBitmask(true);
 	body_enemy->setDynamic(true);
 	enemy->setPhysicsBody(body_enemy);
@@ -461,32 +457,23 @@ void Lab_1::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/for_pause.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/for_pause.mp3", true);
+
+
 }
 void Lab_1::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 // when pac-man touch enemy
 bool Lab_1::onContactBegin(PhysicsContact& contact)
-{	
-	// 1-мітка pac-man
-	// 2-мітка enemy(всі)
-	// а і b це два тіла що зіштовхуються.
-	PhysicsBody *a = contact.getShapeA()->getBody();
-	PhysicsBody *b = contact.getShapeB()->getBody();
-	//check is the bodies have collided 
-	// обовязково прописати через || (або) то не відомо яке тіло перше зіштовхнеться
-
-	if ((1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask()) ||
-		(2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
-	{
-		CCLOG("Game OVER");
-		GoToGameOverScene(this);
-		return true;// Так штовхають одни одного
-	}
-
-	return false;
+{
+	GoToGameOverScene(this);
+	return true;
 }
 
 

@@ -56,9 +56,13 @@ void Lab_3::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/for_pause.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/for_pause.mp3", true);
 }
 void Lab_3::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
