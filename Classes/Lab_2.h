@@ -69,9 +69,9 @@ public:
 	};
 
 	int can_go_Enemy1[12] = {
-		0,16,//coordinate describe point that is located  on top sprite
-		1,15,       1,17,// coordinate describe point that is located  on left and right sprite
-		2,16,//coordinate describe point that is located  on bottom sprite
+		0,5,//coordinate describe point that is located  on top sprite
+		1,4,       1,6,// coordinate describe point that is located  on left and right sprite
+		2,5,//coordinate describe point that is located  on bottom sprite
 		0,0,30,//step on the axis X, step on the axis Y, size of the one square
 		5// one step
 	};

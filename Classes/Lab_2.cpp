@@ -45,7 +45,7 @@ bool Lab_2::init()
 
 
 			if (arr[i][j] == 0) {
-				CCLOG("arr 0");
+				//CCLOG("arr 0");
 				auto wall = Sprite::create("pac_man/zb.png");
 				wall->setAnchorPoint(Vec2(0, 0));
 				wall->setPosition(Vec2(start_cord_x, start_cord_y));
@@ -55,7 +55,7 @@ bool Lab_2::init()
 
 			}
 			if (arr[i][j] == 1) {
-				CCLOG("arr 1");
+				//CCLOG("arr 1");
 				auto way = Sprite::create("pac_man/st.png");
 				way->setAnchorPoint(Vec2(0, 0));
 				way->setPosition(Vec2(start_cord_x, start_cord_y));
@@ -72,11 +72,13 @@ bool Lab_2::init()
 
 	/*Pac-map*/
 	sprite = Sprite::create("pac_man/pac5.png");
-	sprite->setPosition(Vec2(255 + 45, visibleSize.height - 45));
+	sprite->setPosition(Vec2(255+500 + 45, visibleSize.height - 45));
 	this->addChild(sprite, -1);
 
 	auto body = PhysicsBody::createCircle
 	(sprite->getContentSize().width / 2);
+	/*Мітка для тіла, потрібна при обробці зіткнень*/
+	body->setCollisionBitmask(1);
 	body->setContactTestBitmask(true);
 	body->setDynamic(true);
 	sprite->setPhysicsBody(body);
@@ -88,17 +90,21 @@ bool Lab_2::init()
 
 	auto body_enemy = PhysicsBody::createCircle
 	(enemy->getContentSize().width / 2);
+	/*Мітка для тіла, потрібна при обробці зіткнень*/
+	body_enemy->setCollisionBitmask(2);
 	body_enemy->setContactTestBitmask(true);
 	body_enemy->setDynamic(true);
 	enemy->setPhysicsBody(body_enemy);
 	/*Enemy1*/
 	enemy1 = Sprite::create("bad_man/bup1.png");
-	enemy1->setPosition(Vec2(660, visibleSize.height - 45));
+	enemy1->setPosition(Vec2(210+120, visibleSize.height - 45));
 	enemy1->setColor(Color3B::GREEN);
 	this->addChild(enemy1, -1);
 
 	auto body_enemy1 = PhysicsBody::createCircle
 	(enemy1->getContentSize().width / 2);
+	/*Мітка для тіла, потрібна при обробці зіткнень*/
+	body_enemy1->setCollisionBitmask(2);
 	body_enemy1->setContactTestBitmask(true);
 	body_enemy1->setDynamic(true);
 	enemy1->setPhysicsBody(body_enemy1);
@@ -277,7 +283,7 @@ The method determines which key is pressed and save numder key,
 which is used to simulate the sticking of a key
 */
 void Lab_2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
-	CCLOG("Key press %d", keyCode);
+	//CCLOG("Key press %d", keyCode);
 	isKeyPressed = true;
 	switch ((int)keyCode)
 	{
@@ -376,7 +382,7 @@ void Lab_2::randomMoveEnemy(float df) {
 			EnemyArrows = arrows[randomInt];
 		}
 	}
-	CCLOG("Random key %d,  %d", randomInt, EnemyArrows);
+	//CCLOG("Random key %d,  %d", randomInt, EnemyArrows);
 
 
 
@@ -463,12 +469,6 @@ void Lab_2::randomMoveEnemy(float df) {
 	}
 }
 
-
-
-
-
-
-
 void Lab_2::randomMoveEnemy1(float df) {
 	int arrows[4];
 	/*check way when sprite  is on the fork*/
@@ -538,7 +538,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 			EnemyArrows1 = arrows[randomInt1];
 		}
 	}
-	CCLOG("Random key %d,  %d", randomInt1, EnemyArrows1);
+	//CCLOG("Random key %d,  %d", randomInt1, EnemyArrows1);
 
 
 
@@ -557,7 +557,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 			if (can_go_Enemy1[8] == can_go_Enemy1[10]) {
 				can_go_Enemy1[0]--;
 				can_go_Enemy1[2]--;
-				can_go_Enemy[4]--;
+				can_go_Enemy1[4]--;
 				can_go_Enemy1[6]--;
 				can_go_Enemy1[8] = 0;
 			}
@@ -625,10 +625,6 @@ void Lab_2::randomMoveEnemy1(float df) {
 	}
 }
 
-
-
-
-
 void Lab_2::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene2::createScene();
@@ -641,9 +637,23 @@ void Lab_2::GoToGameOverScene(cocos2d::Ref *pSender)
 }
 // when pac-man touch enemy
 bool Lab_2::onContactBegin(PhysicsContact& contact)
-{
-	GoToGameOverScene(this);
-	return true;
+{	// 1-мітка pac-man
+	// 2-мітка enemy(всі)
+	// а і b це два тіла що зіштовхуються.
+	PhysicsBody *a = contact.getShapeA()->getBody();
+	PhysicsBody *b = contact.getShapeB()->getBody();
+	//check is the bodies have collided 
+	// обовязково прописати через || (або) то не відомо яке тіло перше зіштовхнеться
+	
+	if ((1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask()) ||
+		(2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	{
+		CCLOG("Game OVER");
+		GoToGameOverScene(this);
+		return true;// Так штовхають одни одного
+	}
+	
+	return false;
 }
 
 
