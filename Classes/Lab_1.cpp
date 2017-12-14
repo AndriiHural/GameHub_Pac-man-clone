@@ -61,7 +61,7 @@ bool Lab_1::init()
 			if (arr[i][j] == 2) {
 				auto money = Sprite::create("money.png");
 				money->setPosition(Vec2(start_cord_x + 15, start_cord_y + 15));
-				this->addChild(money, -1);
+				//this->addChild(money, -1);
 				/* physicsBodyMoney*/
 				auto body_money = PhysicsBody::createCircle
 				(money->getContentSize().width / 2);
@@ -70,6 +70,8 @@ bool Lab_1::init()
 				body_money->setContactTestBitmask(true);
 				body_money->setDynamic(true);
 				money->setPhysicsBody(body_money);
+				arr_money.push_back(money);
+				this->addChild(arr_money[arr_money.size() - 1], -1);
 			}
 			start_cord_x += 30;
 
@@ -84,7 +86,6 @@ bool Lab_1::init()
 
 	auto body = PhysicsBody::createCircle
 	(sprite->getContentSize().width / 2);
-	/*Мітка для тіла, потрібна при обробці зіткнень*/
 	body->setCollisionBitmask(1);
 	body->setContactTestBitmask(true);
 	body->setDynamic(true);
@@ -94,10 +95,8 @@ bool Lab_1::init()
 	enemy = Sprite::create("bad_man/bup1.png");
 	enemy->setPosition(Vec2(210, visibleSize.height - 45));
 	this->addChild(enemy, -1);
-
 	auto body_enemy = PhysicsBody::createCircle
 	(enemy->getContentSize().width / 2);
-	/*Мітка для тіла, потрібна при обробці зіткнень*/
 	body_enemy->setCollisionBitmask(2);
 	body_enemy->setContactTestBitmask(true);
 	body_enemy->setDynamic(true);
@@ -468,11 +467,17 @@ void Lab_1::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/for_pause.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/for_pause.mp3", true);
+
+
 }
 void Lab_1::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 // when pac-man touch enemy
 bool Lab_1::onContactBegin(PhysicsContact& contact)
@@ -498,14 +503,15 @@ bool Lab_1::onContactBegin(PhysicsContact& contact)
 	{	
 
 		CCLOG("Cosisia Money");
-		Sprite spriteA = (Sprite)contact.getShapeA()->getBody()->getNode();
-		spriteA->onExit();
+		//Sprite spriteA = (Sprite)contact.getShapeA()->getBody()->getNode();
+		//spriteA->onExit();
 		//a.onExit();
 		//arr[can_go[2]][can_go[3]]
 		return true;// Так штовхають одни одного
 	}
 
 	return false;
+	
 }
 
 

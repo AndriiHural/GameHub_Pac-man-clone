@@ -42,13 +42,20 @@ void GameOverScene2::Retry(cocos2d::Ref *pSender)
 {
 	auto scene = Lab_3::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Heathen.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Heathen.mp3", true);
 }
 void GameOverScene2::GoToMainMenu(cocos2d::Ref *pSender)
 {
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Heathen.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Heathen.mp3", true);
 }
 void GameOverScene2::GoToExit(cocos2d::Ref *pSender)
 {
 	Director::getInstance()->end();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }

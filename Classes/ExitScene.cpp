@@ -38,9 +38,11 @@ bool ExitScene::init()
 void ExitScene::Resume(Ref *pSender)
 {
 	Director::getInstance()->popScene();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 void ExitScene::Exit(cocos2d::Ref *pSender)
 {
 	Director::getInstance()->end();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 

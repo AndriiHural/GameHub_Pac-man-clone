@@ -66,6 +66,8 @@ public:
 	};
 	int randomInt;
 	int EnemyArrows = 0;
+	/*array sprite money*/
+	std::vector<cocos2d::Sprite *> arr_money;
 	void randomMoveEnemy(float df);
 	// implement the "static create()" method manually
 	CREATE_FUNC(Lab_1);

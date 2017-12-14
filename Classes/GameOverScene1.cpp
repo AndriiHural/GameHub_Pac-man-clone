@@ -48,7 +48,6 @@ void GameOverScene1::GoToMainMenu(cocos2d::Ref *pSender)
 	auto scene = MainMenu::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
-// програш 2
 void GameOverScene1::GoToExit(cocos2d::Ref *pSender)
 {
 	Director::getInstance()->end();
