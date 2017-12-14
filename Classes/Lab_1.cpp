@@ -40,7 +40,7 @@ bool Lab_1::init()
 	int start_cord_y = visibleSize.height - 30;
 
 	for (int i = 0; i<n_row; i++) {
-		int start_cord_x = 0;
+		int start_cord_x = 165;
 		for (int j = 0; j<n_col; j++) {
 
 
@@ -72,7 +72,7 @@ bool Lab_1::init()
 
 	/*Pac-map*/
 	sprite = Sprite::create("pac_man/pac5.png");
-	sprite->setPosition(Vec2(90 + 45, visibleSize.height - 45));
+	sprite->setPosition(Vec2(255 + 45, visibleSize.height - 45));
 	this->addChild(sprite, -1);
 
 	auto body = PhysicsBody::createCircle
@@ -83,7 +83,7 @@ bool Lab_1::init()
 
 	/*Enemy*/
 	enemy = Sprite::create("bad_man/bup1.png");
-	enemy->setPosition(Vec2(45, visibleSize.height - 45));
+	enemy->setPosition(Vec2(210, visibleSize.height - 45));
 	this->addChild(enemy, -1);
 
 	auto body_enemy = PhysicsBody::createCircle
@@ -106,7 +106,7 @@ bool Lab_1::init()
 
 	/*Update*/
 	this->scheduleUpdate();
-	this->schedule(schedule_selector(Lab_1::randomMoveEnemy), 0.06f);
+	this->schedule(schedule_selector(Lab_1::randomMoveEnemy), 0.1f);
 
 	/*Menu pause*/
 	auto playItem = MenuItemFont::create("||", CC_CALLBACK_1(Lab_1::GoToPauseScene, this));
