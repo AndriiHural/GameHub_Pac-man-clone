@@ -639,11 +639,15 @@ void Lab_2::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene2::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/for_pause.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/for_pause.mp3", true);
 }
 void Lab_2::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene1::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 // when pac-man touch enemy
 bool Lab_2::onContactBegin(PhysicsContact& contact)

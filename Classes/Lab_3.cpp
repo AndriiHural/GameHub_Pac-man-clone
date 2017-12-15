@@ -1,4 +1,4 @@
-﻿#include "Lab_3.h"
+#include "Lab_3.h"
 #include "SimpleAudioEngine.h"
 #include "PauseScene2.h"
 #include "GameOverScene2.h"
@@ -287,16 +287,16 @@ void Lab_3::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
 	isKeyPressed = true;
 	switch ((int)keyCode)
 	{
-	case 28:// ÒÚ≥ÎÍ‡ ‚ „ÓÛ
+	case 28:// ??????� � �???
 		KeyPressed = 28;
 		break;
-	case 29://ÒÚ≥ÎÍ‡ ‚ ‚ÌËÁ
+	case 29://??????� � �???
 		KeyPressed = 29;
 		break;
-	case 26://ÒÚ≥ÎÍ‡ ‚ Î≥‚Ó
+	case 26://??????� � ??�?
 		KeyPressed = 26;
 		break;
-	case 27://ÒÚ≥ÎÍ‡ ‚ Ô‡‚Ó
+	case 27://??????� � ??��?
 		KeyPressed = 27;
 		break;
 	default:
@@ -639,11 +639,15 @@ void Lab_3::GoToPauseScene(cocos2d::Ref *pSender)
 {
 	auto scene = PauseScene2::createScene();
 	Director::getInstance()->pushScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/for_pause.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/for_pause.mp3", true);
 }
 void Lab_3::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene2::createScene();
 	Director::getInstance()->replaceScene(scene);
+
 }
 // when pac-man touch enemy
 bool Lab_3::onContactBegin(PhysicsContact& contact)
@@ -654,3 +658,6 @@ bool Lab_3::onContactBegin(PhysicsContact& contact)
 
 
 
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+}

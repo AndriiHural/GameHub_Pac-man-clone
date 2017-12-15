@@ -27,6 +27,17 @@ bool MainMenu::init()
 	this->addChild(bg, -1);
 
 	auto playItem = MenuItemImage::create("NewGame.png","",CC_CALLBACK_1(MainMenu::GoToLevelScene, this));
+
+	if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying() == false)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Heathen.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Heathen.mp3", true);
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
+	}
+
+
+
+	auto playItem = MenuItemFont::create("New Game",CC_CALLBACK_1(MainMenu::GoToLevelScene, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
 	auto playItem1 = MenuItemImage::create("Settings.png","", CC_CALLBACK_1(MainMenu::GoToSettingsScene, this));
@@ -59,20 +70,27 @@ void MainMenu::GoToLevelScene(Ref *pSender)
 {
 	auto scene = LevelScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
 }
 void MainMenu::GoToAboutScene(Ref *pSender)
 {
 	auto scene = AboutScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
 }
 void MainMenu::GoToSettingsScene(Ref *pSender)
 {
 	auto scene = SettingsScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
 }
 void MainMenu::GoToExitScene(cocos2d::Ref *pSender)
 {
 	auto scene = ExitSceneM::createScene();
 	Director::getInstance()->replaceScene(scene);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 
