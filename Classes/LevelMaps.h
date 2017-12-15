@@ -3,11 +3,16 @@
 #define n_row 21 // size row libirinte
 #define n_col 22 //size colom libirinte
 
-
+/*He have all levels map*/
 class LevelMaps
 {
 protected:
-	/*An array describes a map of movements*/
+	/*An array describes a map of movements
+	and on this array, we create level map.
+	0- is wall,
+	1- is pass,
+	2- is pass and money*/
+
 	int level_1[n_row][n_col] = {
 		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 		{ 0,1,2,1,1,2,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0 },
