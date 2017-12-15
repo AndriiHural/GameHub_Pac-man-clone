@@ -133,9 +133,31 @@ bool Lab_1::init()
 	this->getEventDispatcher()->
 		addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	///*Timer*/
+	//auto cpp == timerLabel = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 24);
+
+	//// position the label on the center of the screen
+	//timerLabel->setPosition(Vec2(origin.x + visibleSize.width / 2,
+	//	origin.y + visibleSize.height - timerLabel->getContentSize().height));
+
+	//// add the label as a child to this layer
+	//this->addChild(label, 1);
+
+	//time = 0;
+	////lapIndex = 0;
+
+	this->schedule(schedule_selector(MainScene::TimerMethod), 0.01);
+
+
 	return true;
 }
 
+void Lab_1::TimerMethod(float dt)
+{
+	time += dt;
+	_String *timeToDisplay = _String::createWithFormat("%.2f", time);
+	label->setString(timeToDisplay->getCString());
+}
 
 void Lab_1::update(float dt)
 {

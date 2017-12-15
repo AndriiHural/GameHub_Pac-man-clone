@@ -74,6 +74,16 @@ public:
 	void GoToPauseScene(Ref *pSender);
 	void GoToGameOverScene(Ref *pSender);
 
+	///*Tiner*/
+	//void TimerMethod(float dt);
+
+	//cocos2d::Label *label;
+	//float time;
+
+	//float laps[3];
+
+	//int lapIndex;
+
 	void setPhysicsWorld(cocos2d::PhysicsWorld* world)
 	{
 		mWorld = world;
