@@ -37,9 +37,6 @@ bool LevelScene::init()
 		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
 	}
 
-
-	auto playItem = MenuItemFont::create("Level 1", CC_CALLBACK_1(LevelScene::GoToLab_1, this));
-
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
 	auto playItem1 = MenuItemImage::create("Level2.png", "", CC_CALLBACK_1(LevelScene::GoToLab_2, this));

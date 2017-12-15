@@ -152,18 +152,18 @@ bool Lab_1::init()
 	//time = 0;
 	////lapIndex = 0;
 
-	this->schedule(schedule_selector(MainScene::TimerMethod), 0.01);
+//	this->schedule(schedule_selector(MainScene::TimerMethod), 0.01);
 
 
 	return true;
 }
 
-void Lab_1::TimerMethod(float dt)
-{
-	time += dt;
-	_String *timeToDisplay = _String::createWithFormat("%.2f", time);
-	label->setString(timeToDisplay->getCString());
-}
+//void Lab_1::TimerMethod(float dt)
+//{
+//	time += dt;
+//	_String *timeToDisplay = _String::createWithFormat("%.2f", time);
+//	label->setString(timeToDisplay->getCString());
+//}
 
 void Lab_1::update(float dt)
 {

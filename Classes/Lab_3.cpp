@@ -647,17 +647,11 @@ void Lab_3::GoToGameOverScene(cocos2d::Ref *pSender)
 {
 	auto scene = GameOverScene2::createScene();
 	Director::getInstance()->replaceScene(scene);
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }
 // when pac-man touch enemy
 bool Lab_3::onContactBegin(PhysicsContact& contact)
 {
 	GoToGameOverScene(this);
 	return true;
-}
-
-
-
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/click.wav");
 }

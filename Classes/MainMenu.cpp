@@ -32,12 +32,8 @@ bool MainMenu::init()
 	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Heathen.mp3");
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Heathen.mp3", true);
-		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
 	}
-
-
-
-	auto playItem = MenuItemFont::create("New Game",CC_CALLBACK_1(MainMenu::GoToLevelScene, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
 	auto playItem1 = MenuItemImage::create("Settings.png","", CC_CALLBACK_1(MainMenu::GoToSettingsScene, this));

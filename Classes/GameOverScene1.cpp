@@ -38,9 +38,9 @@ bool GameOverScene1::init()
 	playItem->setPosition(Vec2(150, -80));
 	playItem2->setPosition(Vec2(150, -240));
 
-	playItem->setScale(0.6);
-	playItem1->setScale(0.6);
-	playItem2->setScale(0.6);
+	playItem->setScale(0.6f);
+	playItem1->setScale(0.6f);
+	playItem2->setScale(0.6f);
 
 	this->addChild(menu);
 	this->addChild(menu1);
