@@ -3,53 +3,54 @@
 #define n_row 21 // size row libirinte
 #define n_col 22 //size colom libirinte
 #include "cocos2d.h"
+#include "LevelMaps.h"
 
 
 
 
-class Lab_1 : public cocos2d::Layer
+class Lab_1 : public cocos2d::Layer,public LevelMaps
 {
-public:
-	static cocos2d::Scene* createScene();
-
-
-	virtual bool init();
-	virtual void update(float df);
+	/*field*/
+private:
 	// my sprite 
 	cocos2d::Sprite *enemy;
 	//enemy
 	cocos2d::Sprite *sprite;
 
+	/*Label score*/
+	cocos2d::Label *myLabel;
+	/*Value score*/
+	int score = 0;
+
 	// number pressed key
 	int KeyPressed;
 	bool isKeyPressed;
-	void onKeyPressed(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *event);
-	void onKeyReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *event);
 
 	/*An array describes a map of movements*/
-	int arr[n_row][n_col] = {
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-		{ 0,1,2,1,1,2,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0 },
-		{ 0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,0 },
-		{ 0,1,1,1,1,0,1,1,1,1,1,0,0,1,0,0,0,1,0,0,1,0 },
-		{ 0,0,1,0,1,0,2,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0 },
-		{ 0,1,1,0,1,1,1,0,0,0,1,2,1,1,1,1,0,0,1,1,1,0 },
-		{ 0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0 },
-		{ 0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0 },
-		{ 0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,1,0 },
-		{ 0,0,0,0,0,0,1,1,0,1,0,1,1,1,1,1,1,1,0,0,1,0 },
-		{ 1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0 },
-		{ 0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0 },
-		{ 0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0 },
-		{ 0,1,1,2,1,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,1,0 },
-		{ 0,1,0,0,1,0,0,0,1,0,0,0,0,1,1,1,1,1,1,0,1,0 },
-		{ 0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,0 },
-		{ 0,0,1,0,1,0,1,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0 },//5
-		{ 0,1,1,1,1,0,1,1,1,0,0,1,0,0,0,0,0,1,1,0,0,0 },//6
-		{ 0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,1,0,0,0,0 },//7
-		{ 0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0 },//8
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }//9
-	};
+	//int arr[n_row][n_col] = {
+	//	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+	//	{ 0,1,2,1,1,2,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0 },
+	//	{ 0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,0 },
+	//	{ 0,1,1,1,1,0,1,1,1,1,1,0,0,1,0,0,0,1,0,0,1,0 },
+	//	{ 0,0,1,0,1,0,2,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0 },
+	//	{ 0,1,1,0,1,1,1,0,0,0,1,2,1,1,1,1,0,0,1,1,1,0 },
+	//	{ 0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0 },
+	//	{ 0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0 },
+	//	{ 0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,1,0 },
+	//	{ 0,0,0,0,0,0,1,1,0,1,0,1,1,1,1,1,1,1,0,0,1,0 },
+	//	{ 1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0 },
+	//	{ 0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0 },
+	//	{ 0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0 },
+	//	{ 0,1,1,2,1,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,1,0 },
+	//	{ 0,1,0,0,1,0,0,0,1,0,0,0,0,1,1,1,1,1,1,0,1,0 },
+	//	{ 0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,0 },
+	//	{ 0,0,1,0,1,0,1,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0 },//5
+	//	{ 0,1,1,1,1,0,1,1,1,0,0,1,0,0,0,0,0,1,1,0,0,0 },//6
+	//	{ 0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,1,0,0,0,0 },//7
+	//	{ 0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0 },//8
+	//	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }//9
+	//};
+
 	int can_go[12] = {
 		0,4,//coordinate describe point that is located  on top sprite
 		1,3,       1,5,// coordinate describe point that is located  on left and right sprite
@@ -66,10 +67,16 @@ public:
 	};
 	int randomInt;
 	int EnemyArrows = 0;
-	/*Label score*/
-	cocos2d::Label *myLabel;
-	/*Value score*/
-	int score = 0;
+
+	/*array of enemy*/
+	std::vector<cocos2d::Sprite *> enemys;
+	/*method*/
+public:
+	static cocos2d::Scene* createScene();
+	virtual bool init();
+	virtual void update(float df);
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *event);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event *event);
 	void randomMoveEnemy(float df);
 	// implement the "static create()" method manually
 	CREATE_FUNC(Lab_1);
@@ -96,7 +103,7 @@ public:
 };
 
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif 
 
 
 

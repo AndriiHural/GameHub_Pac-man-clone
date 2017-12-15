@@ -1,4 +1,6 @@
 ﻿#include "Lab_1.h"
+/*Own test-class*/
+#include "Enemy.h"
 #include "SimpleAudioEngine.h"
 #include "PauseScene.h"
 #include "GameOverScene.h"
@@ -56,21 +58,21 @@ bool Lab_1::init()
 		for (int j = 0; j<n_col; j++) {
 
 
-			if (arr[i][j] == 0) {
+			if (level_1[i][j] == 0) {
 				auto wall = Sprite::create("pac_man/zb.png");
 				wall->setAnchorPoint(Vec2(0, 0));
 				wall->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(wall, -2);
 
 			}
-			if (arr[i][j] >0) {
+			if (level_1[i][j] >0) {
 				auto way = Sprite::create("pac_man/st.png");
 				way->setAnchorPoint(Vec2(0, 0));
 				way->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(way, -2);
 
 			}
-			if (arr[i][j] == 2) {
+			if (level_1[i][j] == 2) {
 				auto money = Sprite::create("money.png");
 				money->setPosition(Vec2(start_cord_x + 15, start_cord_y + 15));
 				/* physicsBodyMoney*/
@@ -116,7 +118,12 @@ bool Lab_1::init()
 	body_enemy->setContactTestBitmask(0x5);//Category who call colisoin
 	body_enemy->setDynamic(true);
 	enemy->setPhysicsBody(body_enemy);
-
+	/*Enemys*/
+	/*for (int i = 0; i < 3; i++) {
+		Enemy ob;
+		enemys.push_back(ob);
+		this->addChild(enemys[enemys.size()-1],1);
+	}*/
 
 	/*listener onKeyPressed*/
 	auto listener = EventListenerKeyboard::create();
@@ -163,7 +170,7 @@ bool Lab_1::init()
 
 //	this->schedule(schedule_selector(MainScene::TimerMethod), 0.01);
 
-
+	
 	return true;
 }
 
@@ -188,7 +195,7 @@ void Lab_1::update(float dt)
 			up->addSpriteFrameWithFile("pac_man/up2.png");
 			up->setDelayPerUnit(0.1f / 2);
 			action = Animate::create(up);
-			if ((arr[can_go[0]][can_go[1]] >0) && (can_go[9] == 0)) {
+			if ((level_1[can_go[0]][can_go[1]] >0) && (can_go[9] == 0)) {
 				if (can_go[8] < can_go[10])
 				{
 					can_go[8] = can_go[8] + can_go[11];
@@ -216,7 +223,7 @@ void Lab_1::update(float dt)
 				can_go[8] = can_go[8] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[6]][can_go[7]] >0) && (can_go[9] == 0)) {
+				if ((level_1[can_go[6]][can_go[7]] >0) && (can_go[9] == 0)) {
 					can_go[0]++;
 					can_go[2]++;
 					can_go[4]++;
@@ -250,7 +257,7 @@ void Lab_1::update(float dt)
 				can_go[9] = can_go[9] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[2]][can_go[3]] >0) && (can_go[8] == 0)) {
+				if ((level_1[can_go[2]][can_go[3]] >0) && (can_go[8] == 0)) {
 					can_go[1]--;
 					can_go[3]--;
 					can_go[5]--;
@@ -278,7 +285,7 @@ void Lab_1::update(float dt)
 			right->setDelayPerUnit(0.1f / 8);
 			action = Animate::create(right);
 
-			if ((arr[can_go[4]][can_go[5]] >0) && (can_go[8] == 0)) {
+			if ((level_1[can_go[4]][can_go[5]] >0) && (can_go[8] == 0)) {
 				if (can_go[9] < can_go[10])
 				{
 					can_go[9] = can_go[9] + can_go[11];
@@ -344,11 +351,16 @@ void Lab_1::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event) {
 }
 /*Move enemy*/
 void Lab_1::randomMoveEnemy(float df) {
+	
+	for (auto enemy:this->enemys) {
+		
+	}
+	
 	int arrows[4];
 	/*check way when sprite  is on the fork*/
 	/*up and down*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]]  >0))
+	if ((level_1[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_1[can_go_Enemy[6]][can_go_Enemy[7]]  >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -358,8 +370,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and left*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
+	if ((level_1[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(level_1[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -369,8 +381,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/* up and right*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
+	if ((level_1[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_1[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -380,8 +392,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*up and left*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[2]][can_go_Enemy[3]] >0))
+	if ((level_1[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_1[can_go_Enemy[2]][can_go_Enemy[3]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 28) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -391,8 +403,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and down*/
-	if ((arr[can_go_Enemy[4]][can_go_Enemy[5]]>0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
+	if ((level_1[can_go_Enemy[4]][can_go_Enemy[5]]>0) &&
+		(level_1[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -402,8 +414,8 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 	}
 	/*left and down*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
+	if ((level_1[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(level_1[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -422,7 +434,7 @@ void Lab_1::randomMoveEnemy(float df) {
 	switch (EnemyArrows)
 	{
 	case 28:// move up
-		if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) && (can_go_Enemy[9] == 0)) {
+		if ((level_1[can_go_Enemy[0]][can_go_Enemy[1]] >0) && (can_go_Enemy[9] == 0)) {
 			if (can_go_Enemy[8] < can_go_Enemy[10])
 			{
 				can_go_Enemy[8] = can_go_Enemy[8] + can_go_Enemy[11];
@@ -443,7 +455,7 @@ void Lab_1::randomMoveEnemy(float df) {
 			can_go_Enemy[8] = can_go_Enemy[8] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[6]][can_go_Enemy[7]] >0) && (can_go_Enemy[9] == 0)) {
+			if ((level_1[can_go_Enemy[6]][can_go_Enemy[7]] >0) && (can_go_Enemy[9] == 0)) {
 				can_go_Enemy[0]++;
 				can_go_Enemy[2]++;
 				can_go_Enemy[4]++;
@@ -460,7 +472,7 @@ void Lab_1::randomMoveEnemy(float df) {
 			can_go_Enemy[9] = can_go_Enemy[9] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) && (can_go_Enemy[8] == 0)) {
+			if ((level_1[can_go_Enemy[2]][can_go_Enemy[3]] >0) && (can_go_Enemy[8] == 0)) {
 				can_go_Enemy[1]--;
 				can_go_Enemy[3]--;
 				can_go_Enemy[5]--;
@@ -472,7 +484,7 @@ void Lab_1::randomMoveEnemy(float df) {
 		}
 		break;
 	case 27:// move right
-		if ((arr[can_go_Enemy[4]][can_go_Enemy[5]] >0) && (can_go_Enemy[8] == 0)) {
+		if ((level_1[can_go_Enemy[4]][can_go_Enemy[5]] >0) && (can_go_Enemy[8] == 0)) {
 			if (can_go_Enemy[9] < can_go_Enemy[10])
 			{
 				can_go_Enemy[9] = can_go_Enemy[9] + can_go_Enemy[11];
