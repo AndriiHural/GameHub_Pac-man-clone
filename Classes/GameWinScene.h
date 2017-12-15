@@ -12,6 +12,7 @@ public:
     
 	CREATE_FUNC(GameWinScene);
 	void GoToMainMenu(Ref *pSender);
+	void GoToLevelScene(Ref *pSender);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

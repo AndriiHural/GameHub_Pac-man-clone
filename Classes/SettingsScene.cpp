@@ -18,10 +18,20 @@ bool SettingsScene::init()
 	{
 		return false;
 	}
-	auto playItem = MenuItemFont::create("Back", CC_CALLBACK_1(SettingsScene::GoToMainMenu, this));
+
+	auto bg = Sprite::create("bgG.jpg");
+	bg->setAnchorPoint(Vec2(0, 0));
+	bg->setPosition(Vec2(0, 0));
+	this->addChild(bg, -1);
+
+	auto Label1 = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 70);
+
+	Label1->setColor(Color3B::YELLOW);
+
+	auto playItem = MenuItemLabel::create(Label1, CC_CALLBACK_1(SettingsScene::GoToMainMenu, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
-	playItem->setPosition(Vec2(450, -280));
+	playItem->setPosition(Vec2(420, -260));
 	this->addChild(menu);
 
 	/*slider move speed  pac-man*/

@@ -17,19 +17,36 @@ bool ExitSceneM::init()
 	{
 		return false;
 	}
-	auto label = Label::createWithSystemFont("Are you sure want to exit?", "Arial", 32);
-	auto playItem = MenuItemFont::create("No", CC_CALLBACK_1(ExitSceneM::Resume, this));
+
+	auto bg = Sprite::create("bgE.jpg");
+	bg->setAnchorPoint(Vec2(0, 0));
+	bg->setPosition(Vec2(0, 0));
+	this->addChild(bg, -1);
+
+	auto are = Sprite::create("Are.png");
+	auto wont = Sprite::create("want.png");
+
+	are->setScale(0.5);
+	wont->setScale(0.5);
+
+	auto playItem = MenuItemImage::create("No.png", "", CC_CALLBACK_1(ExitSceneM::Resume, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
-	auto playItem1 = MenuItemFont::create("Yes", CC_CALLBACK_1(ExitSceneM::Exit, this));
+	auto playItem1 = MenuItemImage::create("Yes.png", "", CC_CALLBACK_1(ExitSceneM::Exit, this));
 	auto menu1 = Menu::create(playItem1, NULL);
 	menu1->alignItemsVerticallyWithPadding(100);
-	playItem->setPosition(Vec2(100, -50));
-	playItem1->setPosition(Vec2(-100,-50));
-	label->setPosition(Vec2(500, 400));
+	playItem->setPosition(Vec2(300, -100));
+	playItem1->setPosition(Vec2(100, -100));
+	playItem->setScale(0.5);
+	playItem1->setScale(0.5);
+
+	are->setPosition(Vec2(700, 500));
+	wont->setPosition(Vec2(730, 400));
 	this->addChild(menu);
 	this->addChild(menu1);
-	this->addChild(label);
+	this->addChild(are);
+	this->addChild(wont);
+
 	return true;
 
 }

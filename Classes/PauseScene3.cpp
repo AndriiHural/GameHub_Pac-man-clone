@@ -19,26 +19,37 @@ bool PauseScene3::init()
 	{
 		return false;
 	}
-	auto playItem = MenuItemFont::create("Main menu", CC_CALLBACK_1(PauseScene3::GoToMainMenu, this));
+	auto bg = Sprite::create("bgP.jpg");
+	bg->setAnchorPoint(Vec2(0, 0));
+	bg->setPosition(Vec2(0, 0));
+	this->addChild(bg, -1);
+
+	auto playItem = MenuItemImage::create("MainMenu.png", "", CC_CALLBACK_1(PauseScene3::GoToMainMenu, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
-	auto playItem1 = MenuItemFont::create("Resume", CC_CALLBACK_1(PauseScene3::Resume, this));
+	auto playItem1 = MenuItemImage::create("Resume.png", "", CC_CALLBACK_1(PauseScene3::Resume, this));
 	auto menu1 = Menu::create(playItem1, NULL);
 	menu1->alignItemsVerticallyWithPadding(100);
-	auto playItem2 = MenuItemFont::create("Retry", CC_CALLBACK_1(PauseScene3::Retry, this));
+	auto playItem2 = MenuItemImage::create("Restart.png", "", CC_CALLBACK_1(PauseScene3::Retry, this));
 	auto menu2 = Menu::create(playItem2, NULL);
 	menu2->alignItemsVerticallyWithPadding(100);
-	auto playItem3 = MenuItemFont::create("Exit", CC_CALLBACK_1(PauseScene3::Exit, this));
+	auto playItem3 = MenuItemImage::create("Exit.png", "", CC_CALLBACK_1(PauseScene3::Exit, this));
 	auto menu3 = Menu::create(playItem3, NULL);
 	menu3->alignItemsVerticallyWithPadding(100);
-	playItem1->setPosition(Vec2(0, 200));
-	playItem2->setPosition(Vec2(0, 100));
-	playItem->setPosition(Vec2(0, 0));
-	playItem3->setPosition(Vec2(0, -100));
-	this->addChild(menu);
-	this->addChild(menu1);
-	this->addChild(menu2);
-	this->addChild(menu3);
+	playItem1->setPosition(Vec2(150, 50));
+	playItem2->setPosition(Vec2(150, -50));
+	playItem->setPosition(Vec2(150, -150));
+	playItem3->setPosition(Vec2(150, -250));
+
+	playItem->setScale(0.5);
+	playItem1->setScale(0.5);
+	playItem2->setScale(0.5);
+	playItem3->setScale(0.5);
+
+	this->addChild(menu, 1);
+	this->addChild(menu1, 1);
+	this->addChild(menu2, 1);
+	this->addChild(menu3, 1);
 	return true;
 }
 void PauseScene3::Resume(cocos2d::Ref *pSender)

@@ -37,7 +37,7 @@ public:
 		{ 0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0 },
 		{ 0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0 },
 		{ 0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,1,0 },
-		{ 0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,0,0,1,0 },
+		{ 0,0,0,0,0,0,1,1,0,1,0,1,1,1,1,1,1,1,0,0,1,0 },
 		{ 1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0 },
 		{ 0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0 },
 		{ 0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0 },
@@ -58,9 +58,9 @@ public:
 		1// one step
 	};
 	int can_go_Enemy[12] = {
-		0,1,//coordinate describe point that is located  on top sprite
-		1,0,       1,2,// coordinate describe point that is located  on left and right sprite
-		2,1,//coordinate describe point that is located  on bottom sprite
+		10,9,//coordinate describe point that is located  on top sprite
+		11,8,       11,10,// coordinate describe point that is located  on left and right sprite
+		12,9,//coordinate describe point that is located  on bottom sprite
 		0,0,30,//step on the axis X, step on the axis Y, size of the one square
 		5// one step
 	};
