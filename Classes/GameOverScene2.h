@@ -11,7 +11,7 @@ public:
     virtual bool init();
     
 	CREATE_FUNC(GameOverScene2);
-	void Retry(Ref *pSender);
+	void Retry3(Ref *pSender);
 	void GoToMainMenu(Ref *pSender);
 	void GoToExit(Ref *pSender);
 };

@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "PauseScene.h"
 #include "GameOverScene.h"
+#include "GameWinScene.h"
 
 
 USING_NS_CC;
@@ -26,6 +27,11 @@ bool Lab_1::init()
 	{
 		return false;
 	}
+
+	auto bg = Sprite::create("bgG.jpg");
+	bg->setAnchorPoint(Vec2(0, 0));
+	bg->setPosition(Vec2(0, 0));
+	this->addChild(bg, -5);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -83,7 +89,7 @@ bool Lab_1::init()
 
 	/*Enemy*/
 	enemy = Sprite::create("bad_man/bup1.png");
-	enemy->setPosition(Vec2(210, visibleSize.height - 45));
+	enemy->setPosition(Vec2(450, visibleSize.height - 345));
 	this->addChild(enemy, -1);
 
 	auto body_enemy = PhysicsBody::createCircle

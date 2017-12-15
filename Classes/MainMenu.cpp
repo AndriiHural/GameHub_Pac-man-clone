@@ -20,26 +20,38 @@ bool MainMenu::init()
 	{
 		return false;
 	}
-	auto playItem = MenuItemFont::create("New Game",CC_CALLBACK_1(MainMenu::GoToLevelScene, this));
+
+	auto bg = Sprite::create("bgM.jpg");
+	bg->setAnchorPoint(Vec2(0,0));
+	bg->setPosition(Vec2(0,0));
+	this->addChild(bg, -1);
+
+	auto playItem = MenuItemImage::create("NewGame.png","",CC_CALLBACK_1(MainMenu::GoToLevelScene, this));
 	auto menu = Menu::create(playItem, NULL);
 	menu->alignItemsVerticallyWithPadding(100);
-	auto playItem1 = MenuItemFont::create("Settings", CC_CALLBACK_1(MainMenu::GoToSettingsScene, this));
+	auto playItem1 = MenuItemImage::create("Settings.png","", CC_CALLBACK_1(MainMenu::GoToSettingsScene, this));
 	auto menu1 = Menu::create(playItem1, NULL);
 	menu1->alignItemsVerticallyWithPadding(100);
-	auto playItem2 = MenuItemFont::create("About", CC_CALLBACK_1(MainMenu::GoToAboutScene, this));
+	auto playItem2 = MenuItemImage::create("About.png", "", CC_CALLBACK_1(MainMenu::GoToAboutScene, this));
 	auto menu2 = Menu::create(playItem2, NULL);
 	menu2->alignItemsVerticallyWithPadding(100);
-	auto playItem3 = MenuItemFont::create("Exit", CC_CALLBACK_1(MainMenu::GoToExitScene, this));
+	auto playItem3 = MenuItemImage::create("Exit.png", "", CC_CALLBACK_1(MainMenu::GoToExitScene, this));
 	auto menu3 = Menu::create(playItem3, NULL);
 	menu2->alignItemsVerticallyWithPadding(100);
-	playItem->setPosition(Vec2(0, 200));
-	playItem1->setPosition(Vec2(0,100));
-	playItem2->setPosition(Vec2(0, 0));
-	playItem3->setPosition(Vec2(0, -100));
-	this->addChild(menu);
-	this->addChild(menu1);
-	this->addChild(menu2);
-	this->addChild(menu3);
+	playItem->setPosition(Vec2(0, 100));
+	playItem1->setPosition(Vec2(0,0));
+	playItem2->setPosition(Vec2(0,-100));
+	playItem3->setPosition(Vec2(0,-200));
+	
+	playItem->setScale(0.5);
+	playItem1->setScale(0.5);
+	playItem2->setScale(0.5);
+	playItem3->setScale(0.5);
+
+	this->addChild(menu,0);
+	this->addChild(menu1,0);
+	this->addChild(menu2,0);
+	this->addChild(menu3,0);
 	return true;
 
 }

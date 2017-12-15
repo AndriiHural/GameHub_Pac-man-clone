@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "PauseScene2.h"
 #include "GameOverScene1.h"
+#include "GameWinScene.h"
 
 
 USING_NS_CC;
@@ -26,6 +27,11 @@ bool Lab_2::init()
 	{
 		return false;
 	}
+
+	auto bg = Sprite::create("bgG.jpg");
+	bg->setAnchorPoint(Vec2(0, 0));
+	bg->setPosition(Vec2(0, 0));
+	this->addChild(bg, -5);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
