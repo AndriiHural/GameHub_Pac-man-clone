@@ -26,7 +26,7 @@ bool LevelScene::init()
 	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/Heathen.mp3");
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/Heathen.mp3", true);
-		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1);
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
 	}
 
 

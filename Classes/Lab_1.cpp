@@ -482,20 +482,7 @@ void Lab_1::GoToGameOverScene(cocos2d::Ref *pSender)
 // when pac-man touch enemy
 bool Lab_1::onContactBegin(PhysicsContact& contact)
 {	
-	/*При зіткненні ГГ з монетою*/
-	for (int i = 0; i < arr_money.size(); i++) {
-		PhysicsBody *a = contact.getShapeA()->getBody();
-		PhysicsBody *b = arr_money[i]->getPhysicsBody();
-
-		if ((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) ||
-			(3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
-		{
-			CCLOG("Take money");
-			this->removeChild(arr_money[i]);
-			arr_money.erase(arr_money.begin() + i);
-			return true;// Так штовхають одни одного
-		}
-	}
+	
 	// 1-мітка pac-man
 	// 2-мітка enemy(всі)
 	// а і b це два тіла що зіштовхуються.
@@ -510,6 +497,21 @@ bool Lab_1::onContactBegin(PhysicsContact& contact)
 		CCLOG("Game OVER");
 		GoToGameOverScene(this);
 		return true;// Так штовхають одни одного
+	}
+	else {
+		/*При зіткненні ГГ з монетою*/
+		for (int i = 0; i < arr_money.size(); i++) {
+			PhysicsBody *b = arr_money[i]->getPhysicsBody();
+
+			if ((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) ||
+				(3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+			{
+				CCLOG("Take money");
+				this->removeChild(arr_money[i]);
+				arr_money.erase(arr_money.begin() + i);
+				return true;// Так штовхають одни одного
+			}
+		}
 	}
 	return false;
 	
