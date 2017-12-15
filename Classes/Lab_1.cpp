@@ -3,6 +3,7 @@
 #include "PauseScene.h"
 #include "GameOverScene.h"
 #include "GameWinScene.h"
+#include <string>
 
 
 USING_NS_CC;
@@ -39,12 +40,17 @@ bool Lab_1::init()
 	/////////////////////////////
 	// 3. add your codes below...
 
+	/*Label score*/
+	myLabel = Label::createWithTTF(std::to_string(score), "fonts/Marker Felt.ttf", 36);
+	myLabel->setPosition(Vec2(120+ (myLabel->getContentSize()).width, visibleSize.height- (myLabel->getContentSize()).height));
+	this->addChild(myLabel);
+
 	/*Background*/
 	//create fild baground
 	//way/st- can go
 	//wall/zb-can`t go
 	int start_cord_y = visibleSize.height - 30;
-
+	int sizeOfMoney = 0;
 	for (int i = 0; i<n_row; i++) {
 		int start_cord_x = 165;
 		for (int j = 0; j<n_col; j++) {
@@ -67,17 +73,18 @@ bool Lab_1::init()
 			if (arr[i][j] == 2) {
 				auto money = Sprite::create("money.png");
 				money->setPosition(Vec2(start_cord_x + 15, start_cord_y + 15));
-				//this->addChild(money, -1);
 				/* physicsBodyMoney*/
 				auto body_money = PhysicsBody::createCircle
 				(money->getContentSize().width / 2);
 				/*Мітка для тіла, потрібна при обробці зіткнень*/
-				body_money->setCollisionBitmask(3);
-				body_money->setContactTestBitmask(true);
+				body_money->setCategoryBitmask(0x3);	//Category 1-pac-man 2-enemy 3-money
+				body_money->setCollisionBitmask(0x1);	//Category object whit can colision
+				body_money->setContactTestBitmask(0x1);//Category who call colisoin
 				body_money->setDynamic(true);
 				money->setPhysicsBody(body_money);
-				arr_money.push_back(money);
-				this->addChild(arr_money[arr_money.size() - 1], -1);
+				body_money->setTag(sizeOfMoney);
+				sizeOfMoney++;
+				this->addChild(money, -1);
 			}
 			start_cord_x += 30;
 
@@ -92,8 +99,9 @@ bool Lab_1::init()
 
 	auto body = PhysicsBody::createCircle
 	(sprite->getContentSize().width / 2);
-	body->setCollisionBitmask(1);
-	body->setContactTestBitmask(true);
+	body->setCategoryBitmask(0x1);	//Category 1-pac-man 2-enemy 3-money
+	body->setCollisionBitmask(0x3);	//Category object whit can colision
+	body->setContactTestBitmask(0x3);//Category who call colisoin
 	body->setDynamic(true);
 	sprite->setPhysicsBody(body);
 
@@ -103,8 +111,9 @@ bool Lab_1::init()
 	this->addChild(enemy, -1);
 	auto body_enemy = PhysicsBody::createCircle
 	(enemy->getContentSize().width / 2);
-	body_enemy->setCollisionBitmask(2);
-	body_enemy->setContactTestBitmask(true);
+	body_enemy->setCategoryBitmask(0x2);	//Category 1-pac-man 2-enemy 3-money
+	body_enemy->setCollisionBitmask(0x1);	//Category object whit can colision
+	body_enemy->setContactTestBitmask(0x5);//Category who call colisoin
 	body_enemy->setDynamic(true);
 	enemy->setPhysicsBody(body_enemy);
 
@@ -518,29 +527,27 @@ bool Lab_1::onContactBegin(PhysicsContact& contact)
 	PhysicsBody *b = contact.getShapeB()->getBody();
 	//check is the bodies have collided 
 	// обовязково прописати через || (або) то не відомо яке тіло перше зіштовхнеться
-
-	if ((1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask()) ||
-		(2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	if ((0x1 == a->getCategoryBitmask() && 0x2 == b->getCategoryBitmask()) ||
+		(0x2 == a->getCategoryBitmask() && 0x1 == b->getCategoryBitmask()))
 	{
 		CCLOG("Game OVER");
 		GoToGameOverScene(this);
 		return true;// Так штовхають одни одного
 	}
-	else {
-		/*При зіткненні ГГ з монетою*/
-		for (int i = 0; i < arr_money.size(); i++) {
-			PhysicsBody *b = arr_money[i]->getPhysicsBody();
-
-			if ((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) ||
-				(3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
-			{
-				CCLOG("Take money");
-				this->removeChild(arr_money[i]);
-				arr_money.erase(arr_money.begin() + i);
-				return true;// Так штовхають одни одного
-			}
-		}
+	/*При зіткненні ГГ з монетою*/
+	if ((0x1 == a->getCategoryBitmask() && 0x3 == b->getCategoryBitmask()) ||
+		(0x3 == a->getCategoryBitmask() && 0x1 == b->getCategoryBitmask()))
+	{
+		CCLOG("Take money");
+		    if(0x1 == a->getCategoryBitmask())
+		        b->getNode()->removeFromParent();
+		    else if (0x1 == b->getCategoryBitmask())
+		        a->getNode()->removeFromParent();
+			score += 100;
+			myLabel->setString(std::to_string(score));
+		return true;// Так штовхають одни одного
 	}
+	
 	return false;
 	
 }

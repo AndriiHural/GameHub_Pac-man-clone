@@ -66,8 +66,10 @@ public:
 	};
 	int randomInt;
 	int EnemyArrows = 0;
-	/*array sprite money*/
-	std::vector<cocos2d::Sprite *> arr_money;
+	/*Label score*/
+	cocos2d::Label *myLabel;
+	/*Value score*/
+	int score = 0;
 	void randomMoveEnemy(float df);
 	// implement the "static create()" method manually
 	CREATE_FUNC(Lab_1);
