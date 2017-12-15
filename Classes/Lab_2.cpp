@@ -50,21 +50,21 @@ bool Lab_2::init()
 		for (int j = 0; j<n_col; j++) {
 
 
-			if (arr[i][j] == 0) {
+			if (level_2[i][j] == 0) {
 				auto wall = Sprite::create("pac_man/zb.png");
 				wall->setAnchorPoint(Vec2(0, 0));
 				wall->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(wall, -2);
 
 			}
-			if (arr[i][j] >0) {
+			if (level_2[i][j] >0) {
 				auto way = Sprite::create("pac_man/st.png");
 				way->setAnchorPoint(Vec2(0, 0));
 				way->setPosition(Vec2(start_cord_x, start_cord_y));
 				this->addChild(way, -2);
 
 			}
-			if (arr[i][j] == 2) {
+			if (level_2[i][j] == 2) {
 				auto money = Sprite::create("money.png");
 				money->setPosition(Vec2(start_cord_x + 15, start_cord_y + 15));
 				//this->addChild(money, -1);
@@ -182,7 +182,7 @@ void Lab_2::update(float dt)
 			up->addSpriteFrameWithFile("pac_man/up2.png");
 			up->setDelayPerUnit(0.1f / 2);
 			action = Animate::create(up);
-			if ((arr[can_go[0]][can_go[1]] >0) && (can_go[9] == 0)) {
+			if ((level_2[can_go[0]][can_go[1]] >0) && (can_go[9] == 0)) {
 				if (can_go[8] < can_go[10])
 				{
 					can_go[8] = can_go[8] + can_go[11];
@@ -210,7 +210,7 @@ void Lab_2::update(float dt)
 				can_go[8] = can_go[8] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[6]][can_go[7]] >0) && (can_go[9] == 0)) {
+				if ((level_2[can_go[6]][can_go[7]] >0) && (can_go[9] == 0)) {
 					can_go[0]++;
 					can_go[2]++;
 					can_go[4]++;
@@ -244,7 +244,7 @@ void Lab_2::update(float dt)
 				can_go[9] = can_go[9] - can_go[11];
 			}
 			else {
-				if ((arr[can_go[2]][can_go[3]] >0) && (can_go[8] == 0)) {
+				if ((level_2[can_go[2]][can_go[3]] >0) && (can_go[8] == 0)) {
 					can_go[1]--;
 					can_go[3]--;
 					can_go[5]--;
@@ -272,7 +272,7 @@ void Lab_2::update(float dt)
 			right->setDelayPerUnit(0.1f / 8);
 			action = Animate::create(right);
 
-			if ((arr[can_go[4]][can_go[5]] >0) && (can_go[8] == 0)) {
+			if ((level_2[can_go[4]][can_go[5]] >0) && (can_go[8] == 0)) {
 				if (can_go[9] < can_go[10])
 				{
 					can_go[9] = can_go[9] + can_go[11];
@@ -335,8 +335,8 @@ void Lab_2::randomMoveEnemy(float df) {
 	int arrows[4];
 	/*check way when sprite  is on the fork*/
 	/*up and down*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]]  >0))
+	if ((level_2[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_2[can_go_Enemy[6]][can_go_Enemy[7]]  >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -346,8 +346,8 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and left*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
+	if ((level_2[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(level_2[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -357,8 +357,8 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 	}
 	/* up and right*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[4]][can_go_Enemy[5]] >0))
+	if ((level_2[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_2[can_go_Enemy[4]][can_go_Enemy[5]] >0))
 	{
 		if ((EnemyArrows != 28) && (EnemyArrows != 27) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -368,8 +368,8 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 	}
 	/*up and left*/
-	if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
-		(arr[can_go_Enemy[2]][can_go_Enemy[3]] >0))
+	if ((level_2[can_go_Enemy[0]][can_go_Enemy[1]] >0) &&
+		(level_2[can_go_Enemy[2]][can_go_Enemy[3]] >0))
 	{
 		if ((EnemyArrows != 26) && (EnemyArrows != 28) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -379,8 +379,8 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 	}
 	/*right and down*/
-	if ((arr[can_go_Enemy[4]][can_go_Enemy[5]]>0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
+	if ((level_2[can_go_Enemy[4]][can_go_Enemy[5]]>0) &&
+		(level_2[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -390,8 +390,8 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 	}
 	/*left and down*/
-	if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
-		(arr[can_go_Enemy[6]][can_go_Enemy[7]] >0))
+	if ((level_2[can_go_Enemy[2]][can_go_Enemy[3]] >0) &&
+		(level_2[can_go_Enemy[6]][can_go_Enemy[7]] >0))
 	{
 		if ((EnemyArrows != 27) && (EnemyArrows != 29) && (can_go_Enemy[8] == 0) && (can_go_Enemy[9] == 0)) {
 			randomInt = (random(0, 1));
@@ -410,7 +410,7 @@ void Lab_2::randomMoveEnemy(float df) {
 	switch (EnemyArrows)
 	{
 	case 28:// move up
-		if ((arr[can_go_Enemy[0]][can_go_Enemy[1]] >0) && (can_go_Enemy[9] == 0)) {
+		if ((level_2[can_go_Enemy[0]][can_go_Enemy[1]] >0) && (can_go_Enemy[9] == 0)) {
 			if (can_go_Enemy[8] < can_go_Enemy[10])
 			{
 				can_go_Enemy[8] = can_go_Enemy[8] + can_go_Enemy[11];
@@ -431,7 +431,7 @@ void Lab_2::randomMoveEnemy(float df) {
 			can_go_Enemy[8] = can_go_Enemy[8] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[6]][can_go_Enemy[7]] >0) && (can_go_Enemy[9] == 0)) {
+			if ((level_2[can_go_Enemy[6]][can_go_Enemy[7]] >0) && (can_go_Enemy[9] == 0)) {
 				can_go_Enemy[0]++;
 				can_go_Enemy[2]++;
 				can_go_Enemy[4]++;
@@ -448,7 +448,7 @@ void Lab_2::randomMoveEnemy(float df) {
 			can_go_Enemy[9] = can_go_Enemy[9] - can_go_Enemy[11];
 		}
 		else {
-			if ((arr[can_go_Enemy[2]][can_go_Enemy[3]] >0) && (can_go_Enemy[8] == 0)) {
+			if ((level_2[can_go_Enemy[2]][can_go_Enemy[3]] >0) && (can_go_Enemy[8] == 0)) {
 				can_go_Enemy[1]--;
 				can_go_Enemy[3]--;
 				can_go_Enemy[5]--;
@@ -460,7 +460,7 @@ void Lab_2::randomMoveEnemy(float df) {
 		}
 		break;
 	case 27:// move right
-		if ((arr[can_go_Enemy[4]][can_go_Enemy[5]] >0) && (can_go_Enemy[8] == 0)) {
+		if ((level_2[can_go_Enemy[4]][can_go_Enemy[5]] >0) && (can_go_Enemy[8] == 0)) {
 			if (can_go_Enemy[9] < can_go_Enemy[10])
 			{
 				can_go_Enemy[9] = can_go_Enemy[9] + can_go_Enemy[11];
@@ -491,8 +491,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 	int arrows[4];
 	/*check way when sprite  is on the fork*/
 	/*up and down*/
-	if ((arr[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
-		(arr[can_go_Enemy1[6]][can_go_Enemy1[7]]  >0))
+	if ((level_2[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
+		(level_2[can_go_Enemy1[6]][can_go_Enemy1[7]]  >0))
 	{
 		if ((EnemyArrows1 != 28) && (EnemyArrows1 != 29) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -502,8 +502,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 	}
 	/*right and left*/
-	if ((arr[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) &&
-		(arr[can_go_Enemy1[4]][can_go_Enemy1[5]] >0))
+	if ((level_2[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) &&
+		(level_2[can_go_Enemy1[4]][can_go_Enemy1[5]] >0))
 	{
 		if ((EnemyArrows1 != 26) && (EnemyArrows1 != 27) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -513,8 +513,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 	}
 	/* up and right*/
-	if ((arr[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
-		(arr[can_go_Enemy1[4]][can_go_Enemy1[5]] >0))
+	if ((level_2[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
+		(level_2[can_go_Enemy1[4]][can_go_Enemy1[5]] >0))
 	{
 		if ((EnemyArrows1 != 28) && (EnemyArrows1 != 27) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -524,8 +524,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 	}
 	/*up and left*/
-	if ((arr[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
-		(arr[can_go_Enemy1[2]][can_go_Enemy1[3]] >0))
+	if ((level_2[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) &&
+		(level_2[can_go_Enemy1[2]][can_go_Enemy1[3]] >0))
 	{
 		if ((EnemyArrows1 != 26) && (EnemyArrows1 != 28) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -535,8 +535,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 	}
 	/*right and down*/
-	if ((arr[can_go_Enemy1[4]][can_go_Enemy1[5]]>0) &&
-		(arr[can_go_Enemy1[6]][can_go_Enemy1[7]] >0))
+	if ((level_2[can_go_Enemy1[4]][can_go_Enemy1[5]]>0) &&
+		(level_2[can_go_Enemy1[6]][can_go_Enemy1[7]] >0))
 	{
 		if ((EnemyArrows1 != 27) && (EnemyArrows1 != 29) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -546,8 +546,8 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 	}
 	/*left and down*/
-	if ((arr[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) &&
-		(arr[can_go_Enemy1[6]][can_go_Enemy1[7]] >0))
+	if ((level_2[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) &&
+		(level_2[can_go_Enemy1[6]][can_go_Enemy1[7]] >0))
 	{
 		if ((EnemyArrows1 != 27) && (EnemyArrows1 != 29) && (can_go_Enemy1[8] == 0) && (can_go_Enemy1[9] == 0)) {
 			randomInt1 = (random(0, 1));
@@ -566,7 +566,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 	switch (EnemyArrows1)
 	{
 	case 28:// move up
-		if ((arr[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) && (can_go_Enemy1[9] == 0)) {
+		if ((level_2[can_go_Enemy1[0]][can_go_Enemy1[1]] >0) && (can_go_Enemy1[9] == 0)) {
 			if (can_go_Enemy1[8] < can_go_Enemy1[10])
 			{
 				can_go_Enemy1[8] = can_go_Enemy1[8] + can_go_Enemy1[11];
@@ -587,7 +587,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 			can_go_Enemy1[8] = can_go_Enemy1[8] - can_go_Enemy1[11];
 		}
 		else {
-			if ((arr[can_go_Enemy1[6]][can_go_Enemy1[7]] >0) && (can_go_Enemy1[9] == 0)) {
+			if ((level_2[can_go_Enemy1[6]][can_go_Enemy1[7]] >0) && (can_go_Enemy1[9] == 0)) {
 				can_go_Enemy1[0]++;
 				can_go_Enemy1[2]++;
 				can_go_Enemy1[4]++;
@@ -604,7 +604,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 			can_go_Enemy1[9] = can_go_Enemy1[9] - can_go_Enemy1[11];
 		}
 		else {
-			if ((arr[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) && (can_go_Enemy1[8] == 0)) {
+			if ((level_2[can_go_Enemy1[2]][can_go_Enemy1[3]] >0) && (can_go_Enemy1[8] == 0)) {
 				can_go_Enemy1[1]--;
 				can_go_Enemy1[3]--;
 				can_go_Enemy1[5]--;
@@ -616,7 +616,7 @@ void Lab_2::randomMoveEnemy1(float df) {
 		}
 		break;
 	case 27:// move right
-		if ((arr[can_go_Enemy1[4]][can_go_Enemy1[5]] >0) && (can_go_Enemy1[8] == 0)) {
+		if ((level_2[can_go_Enemy1[4]][can_go_Enemy1[5]] >0) && (can_go_Enemy1[8] == 0)) {
 			if (can_go_Enemy1[9] < can_go_Enemy1[10])
 			{
 				can_go_Enemy1[9] = can_go_Enemy1[9] + can_go_Enemy1[11];
@@ -647,8 +647,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 	int arrows[4];
 	/*check way when sp2rite  is on the fork*/
 	/*up2 and down*/
-	if ((arr[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
-		(arr[can_go_Enemy2[6]][can_go_Enemy2[7]]  >0))
+	if ((level_2[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
+		(level_2[can_go_Enemy2[6]][can_go_Enemy2[7]]  >0))
 	{
 		if ((EnemyArrows2 != 28) && (EnemyArrows2 != 29) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -658,8 +658,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 	}
 	/*right and left*/
-	if ((arr[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) &&
-		(arr[can_go_Enemy2[4]][can_go_Enemy2[5]] >0))
+	if ((level_2[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) &&
+		(level_2[can_go_Enemy2[4]][can_go_Enemy2[5]] >0))
 	{
 		if ((EnemyArrows2 != 26) && (EnemyArrows2 != 27) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -669,8 +669,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 	}
 	/* up2 and right*/
-	if ((arr[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
-		(arr[can_go_Enemy2[4]][can_go_Enemy2[5]] >0))
+	if ((level_2[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
+		(level_2[can_go_Enemy2[4]][can_go_Enemy2[5]] >0))
 	{
 		if ((EnemyArrows2 != 28) && (EnemyArrows2 != 27) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -680,8 +680,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 	}
 	/*up2 and left*/
-	if ((arr[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
-		(arr[can_go_Enemy2[2]][can_go_Enemy2[3]] >0))
+	if ((level_2[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) &&
+		(level_2[can_go_Enemy2[2]][can_go_Enemy2[3]] >0))
 	{
 		if ((EnemyArrows2 != 26) && (EnemyArrows2 != 28) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -691,8 +691,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 	}
 	/*right and down*/
-	if ((arr[can_go_Enemy2[4]][can_go_Enemy2[5]]>0) &&
-		(arr[can_go_Enemy2[6]][can_go_Enemy2[7]] >0))
+	if ((level_2[can_go_Enemy2[4]][can_go_Enemy2[5]]>0) &&
+		(level_2[can_go_Enemy2[6]][can_go_Enemy2[7]] >0))
 	{
 		if ((EnemyArrows2 != 27) && (EnemyArrows2 != 29) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -702,8 +702,8 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 	}
 	/*left and down*/
-	if ((arr[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) &&
-		(arr[can_go_Enemy2[6]][can_go_Enemy2[7]] >0))
+	if ((level_2[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) &&
+		(level_2[can_go_Enemy2[6]][can_go_Enemy2[7]] >0))
 	{
 		if ((EnemyArrows2 != 27) && (EnemyArrows2 != 29) && (can_go_Enemy2[8] == 0) && (can_go_Enemy2[9] == 0)) {
 			randomInt2 = (random(0, 1));
@@ -722,7 +722,7 @@ void Lab_2::randomMoveEnemy2(float df) {
 	switch (EnemyArrows2)
 	{
 	case 28:// move up2
-		if ((arr[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) && (can_go_Enemy2[9] == 0)) {
+		if ((level_2[can_go_Enemy2[0]][can_go_Enemy2[1]] >0) && (can_go_Enemy2[9] == 0)) {
 			if (can_go_Enemy2[8] < can_go_Enemy2[10])
 			{
 				can_go_Enemy2[8] = can_go_Enemy2[8] + can_go_Enemy2[11];
@@ -743,7 +743,7 @@ void Lab_2::randomMoveEnemy2(float df) {
 			can_go_Enemy2[8] = can_go_Enemy2[8] - can_go_Enemy2[11];
 		}
 		else {
-			if ((arr[can_go_Enemy2[6]][can_go_Enemy2[7]] >0) && (can_go_Enemy2[9] == 0)) {
+			if ((level_2[can_go_Enemy2[6]][can_go_Enemy2[7]] >0) && (can_go_Enemy2[9] == 0)) {
 				can_go_Enemy2[0]++;
 				can_go_Enemy2[2]++;
 				can_go_Enemy2[4]++;
@@ -760,7 +760,7 @@ void Lab_2::randomMoveEnemy2(float df) {
 			can_go_Enemy2[9] = can_go_Enemy2[9] - can_go_Enemy2[11];
 		}
 		else {
-			if ((arr[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) && (can_go_Enemy2[8] == 0)) {
+			if ((level_2[can_go_Enemy2[2]][can_go_Enemy2[3]] >0) && (can_go_Enemy2[8] == 0)) {
 				can_go_Enemy2[1]--;
 				can_go_Enemy2[3]--;
 				can_go_Enemy2[5]--;
@@ -772,7 +772,7 @@ void Lab_2::randomMoveEnemy2(float df) {
 		}
 		break;
 	case 27:// move right
-		if ((arr[can_go_Enemy2[4]][can_go_Enemy2[5]] >0) && (can_go_Enemy2[8] == 0)) {
+		if ((level_2[can_go_Enemy2[4]][can_go_Enemy2[5]] >0) && (can_go_Enemy2[8] == 0)) {
 			if (can_go_Enemy2[9] < can_go_Enemy2[10])
 			{
 				can_go_Enemy2[9] = can_go_Enemy2[9] + can_go_Enemy2[11];
