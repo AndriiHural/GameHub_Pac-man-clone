@@ -18,9 +18,7 @@ public:
 	cocos2d::Sprite *sprite; 
 	//enemy
 	cocos2d::Sprite *enemy;
-
 	cocos2d::Sprite *enemy1;
-
 	cocos2d::Sprite *enemy2;
 	// number pressed key
 	int KeyPressed;
